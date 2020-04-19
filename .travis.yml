@@ -1,8 +1,9 @@
 language: php
 php:
   - '7.4.4'
-# before_script:
-#     - cp .env.travis .env
+before_script: 
+  - cp .env.travis .env
+  - php artisan key:generate
 install:
   - composer self-update
   - make install
