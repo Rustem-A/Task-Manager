@@ -24,14 +24,14 @@
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="">Task Manager</a>
+        <a class="navbar-brand" href="{{route('home')}}">Task Manager</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="">Home</a>
+                    <a class="nav-link" href="{{route('home')}}">Home</a>
                 </li>
                 <li class="nav-item active">
                     <a class="nav-link" href="">Users</a>
@@ -51,9 +51,9 @@
                 <li class="nav-item active">
                      <a class="nav-link" href="">Log in</a>
                 </li>
-                @if (Route::has('register'))
+                @if (Route::has('auth.registration'))
                 <li class="nav-item active">
-                    <a class="nav-link" href="">Registration</a>
+                    <a class="nav-link" href="{{route('auth.registration')}}">Registration</a>
                 </li>
                 @endif
                 @else
