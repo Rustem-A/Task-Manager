@@ -15,6 +15,7 @@ use Barryvdh\Debugbar\Facade as Debugbar;
 */
 
 Route::get('/', function () {
-    Debugbar::error('Error!');
-    return view('welcome');
+    return view('home');
 });
+
+// Route::get('/', );
