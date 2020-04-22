@@ -16,8 +16,8 @@ use Barryvdh\Debugbar\Facade as Debugbar;
 
 Route::get('/', function () {
     return view('home');
-})
-->name('home');
+});
 
-Route::get('/registration', 'UserController@registration')
-->name('auth.registration');
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
