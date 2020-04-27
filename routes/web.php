@@ -22,6 +22,6 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-// User
-
-// Task
+Route::resource('/users', 'UserController');
+Route::resource('/tasks', 'TaskController');
+Route::resource('tasks.taskComments', 'TaskCommentController');
