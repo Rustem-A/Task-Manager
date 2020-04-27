@@ -27,7 +27,13 @@
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
+                    Task-Manager
+                </a>
+                <a class="navbar-brand" href="{{ route('user.index') }}">
+                    {{ __('Users') }}
+                </a>
+                <a class="navbar-brand" href="{{ route('task.index') }}">
+                    {{ __('Tasks') }}
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -74,7 +80,11 @@
                 </div>
             </div>
         </nav>
-
+        <div class="text-center bg-secondary text-white text-uppercase pb-2 pt-3 mb-2">
+        <h3 class="font-weight-bold">
+            @yield('header')
+        </h3>
+        </div>
         <main class="py-4">
             @yield('content')
         </main>

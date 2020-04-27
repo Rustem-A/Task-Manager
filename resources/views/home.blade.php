@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('header')
+Main Page
+@endsection
+
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
@@ -14,7 +18,7 @@
                         </div>
                     @endif
 
-                    You are logged in!
+                    Welcome!
                 </div>
             </div>
         </div>
