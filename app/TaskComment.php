@@ -4,10 +4,15 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Task extends Model
+class TaskComment extends Model
 {
     public function creator()
     {
         return $this->belongsTo('App\User');
+    }
+
+    public function task()
+    {
+        return $this->belongsTo('App\Task');
     }
 }

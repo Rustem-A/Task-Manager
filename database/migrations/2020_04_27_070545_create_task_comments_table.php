@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTasksTable extends Migration
+class CreateTaskCommentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,14 @@ class CreateTasksTable extends Migration
      */
     public function up()
     {
-        Schema::create('tasks', function (Blueprint $table) {
+        Schema::create('task_comments', function (Blueprint $table) {
             $table->id();
             $table->string('title');
             $table->string('description');
-            $table->string('state')->nullable();
-            // Поле которое будет внешним ключом
             $table->bigInteger('creator_id');
-            // Добавление внешнего ключа (ограничения)
             $table->foreign('creator_id')->references('id')->on('users');
+            $table->bigInteger('task_id');
+            $table->foreign('task_id')->references('id')->on('tasks');
             $table->timestamps();
         });
     }
@@ -33,6 +32,6 @@ class CreateTasksTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tasks');
+        Schema::dropIfExists('task_comments');
     }
 }
