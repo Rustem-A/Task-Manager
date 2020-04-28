@@ -5,6 +5,13 @@
 @endsection
 
 @section('content')
+
+@if (Session::has('success'))
+<div class="alert alert-success" role="alert">
+    {{ Session::get('success') }}
+</div>
+@endif
+
 @guest
     <div class="row justify-content-center">
         <div class="col-sm-8">
@@ -33,7 +40,7 @@
                             <p>{{ __('NickName') }}</p>
                         </div>
                         <div class="col">
-                            <p>{{ $user->name }}</p>
+                            <p>{{ $user->nickname }}</p>
                         </div>
                     </div>
                     @if($isUser)
@@ -47,6 +54,32 @@
                         </div>
                     @endif
                     <div class="row">
+                            <div class="col">
+                                <p>Name</p>
+                            </div>
+                            <div class="col">
+                                <p>{{ $user->name }}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <p>Lastname</p>
+                            </div>
+                            <div class="col">
+                                <p>{{ $user->lastname }}</p>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <p>Birthday</p>
+                            </div>
+                            <div class="col">
+                                <p>{{ $user->birthday }}</p>
+                            </div>
+                        </div>
+                        
+                    <div class="row">
                         <div class="col">
                             <p>{{ __('Registration date') }}</p>
                         </div>
@@ -54,6 +87,16 @@
                             <p>{{ $user->created_at }}</p>
                         </div>
                     </div>
+
+                    @if($isUser)
+                    <div class="form-group row mb-0">
+                            <div class="col-md-6 offset-md-4">
+                            <a href="{{ route('users.edit', $user) }}"><button type="button" class="btn btn-primary">
+                                    {{ __('Add/Change fields') }}
+                                </button></a>
+                            </div>
+                     </div>
+                    @endif
                 </div>
             </div>
         </div>

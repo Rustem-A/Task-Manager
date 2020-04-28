@@ -14,7 +14,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        $users = User::paginate(20);
+        return view('user.index', compact('users'));
     }
 
     /**
@@ -24,7 +25,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**
@@ -44,9 +45,10 @@ class UserController extends Controller
      * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function show(User $user)
+    public function show(Request $request, User $user)
     {
-        //
+        $isUser = $request->user() == $user;
+        return view('user.show', compact('user', 'isUser'));
     }
 
     /**
@@ -57,7 +59,9 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        //
+
+        $dateArr = explode('-', $user->birthday);
+        return view('user.edit', compact('user', 'dateArr'));
     }
 
     /**
@@ -69,7 +73,22 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        //
+        $day = $request->input('birth_day');
+        $month = $request->input('birth_month');
+        $year = $request->input('birth_year');
+
+        if ($day && $month && $year) {
+            $birthday = "$day.$month.$year";
+        } else {
+            $birthday = null;
+        }
+
+        $user->fill(['name' => $request->input('name'), 'lastname' => $request->input('lastname')]);
+        $user->birthday = $birthday;
+        $user->save();
+        $request->session()->flash('success', 'Your profile has been changed!');
+
+        return redirect()->route('users.show', $user);
     }
 
     /**
