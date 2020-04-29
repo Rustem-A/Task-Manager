@@ -15,27 +15,29 @@ class TaskController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $users = User::all();
         $statuses = TaskStatus::all();
         $tags = TaskTag::all();
-        $tasks = Task::paginate(10);
-        return view('task.index', compact('tasks', 'users', 'statuses', 'tags'));
-    }
+        $tasks = Task::paginate();
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        $statuses = TaskStatus::orderBy('id', 'desc')->paginate();
-        $tags = TaskTag::all();
+        $query = Task::query();
         
-        $users = User::all();
-        return view('task.create', compact('users', 'statuses', 'tags'));
+        if ($request->has('authUserId')) {
+            $tasks = User::find($request->input('authUserId'))->tasks;
+        }
+
+        if ($request->input('creator_id') || $request->input('executor_id') || $request->input('status_id')) {
+            foreach ($request->all() as $name => $value) {
+                if ($value !== null) {
+                    $query->where($name, $value);
+                }
+            }
+            $tasks = $query->get();
+        }
+        
+        return view('task.index', compact('tasks', 'users', 'statuses', 'tags'));
     }
 
     /**
