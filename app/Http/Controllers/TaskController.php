@@ -40,6 +40,14 @@ class TaskController extends Controller
         return view('task.index', compact('tasks', 'users', 'statuses', 'tags'));
     }
 
+    public function create()
+    {
+        $statuses = TaskStatus::orderBy('id', 'desc')->paginate();
+        $tags = TaskTag::all();
+        
+        $users = User::all();
+        return view('task.create', compact('users', 'statuses', 'tags'));
+    }
     /**
      * Store a newly created resource in storage.
      *
