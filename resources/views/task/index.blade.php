@@ -83,10 +83,11 @@ Tasks List
 </div>
 </div>
 
-
 @if(Auth::check())
-<div class="btn btn-secondary ml-3 mt-3">
-    <a href="{{ route('tasks.create') }}" class="text-white">{{ __('Create new task') }}</a>
+<div class="form-group col-md-3 pl-4 my-2">
+    <div class="btn btn-secondary ml-3 mt-3">
+        <a href="{{ route('tasks.create') }}" class="text-white">{{ __('Create new task') }}</a>
+    </div>
 </div>
 @endif
 
