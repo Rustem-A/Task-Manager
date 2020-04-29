@@ -105,46 +105,38 @@
             <div class="card border-light">
                 <div class="card-header bg-secondary text-white text-center pt-3 pb-1">
                     <h5>
-                        {{ __('Registration information') }}
+                        {{ __('Created tasks') }}
                     </h5>
                 </div>
-                <div class="card-body">
-                    <div class="row">
-                        
-                    </div>
-                    
-                    <div class="row">
-                        <div class="col">
-                            
-                        </div>
-                        <div class="col">
-                            
-                        </div>
-                    </div>
+                <div class="card-body p-1">
+                
+                @if(sizeof($user->tasks))
+                    @foreach($user->tasks as $task)
+                        @include('user.infoOfTaskInUserProfile')
+                    @endforeach
+                @else
+                    <p class="m-2">{{ __('No tasks') }}</p>
+                @endif
                 </div>
             </div>
 
-        <div class="col-sm-3">
-            <div class="card">
+            <div class="card border-light">
                 <div class="card-header bg-secondary text-white text-center pt-3 pb-1">
                     <h5>
-                        {{ __('Registration information') }}
+                        {{ __('Assigned tasks') }}
                     </h5>
                 </div>
-                <div class="card-body pl-5">
-                    <div class="row">
-                        asd
-                    </div>
-                    
-                    <div class="row">
-                        <div class="col">
-                            
-                        </div>
-                        <div class="col">
-                            
-                        </div>
-                    </div>
+                <div class="card-body p-1">
+                
+                @if(sizeof($assignedTasks))
+                    @foreach($assignedTasks as $task)
+                        @include('user.infoOfTaskInUserProfile')
+                    @endforeach
+                @else
+                    <p class="m-2">{{ __('No tasks') }}</p>
+                @endif
                 </div>
             </div>
+        </div>
 @endauth
 @endsection

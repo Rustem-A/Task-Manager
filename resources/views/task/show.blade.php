@@ -24,7 +24,7 @@
             <div class="card">
                 <div class="card-header bg-secondary text-white text-center pt-3 pb-1">
                     <h5>
-                        {{ __('Registration information') }}
+                        {{ __('Task information') }}
                     </h5>
                 </div>
                 <div class="card-body">
@@ -82,9 +82,17 @@
                             <p>{{ $task->created_at }}</p>
                         </div>
                     </div>
+                    @if(Auth::user() == $task->creator || Auth::user()->id == $task->executor_id)
+                        <div class="btn btn-secondary">
+                            <a href="{{ route('tasks.edit', $task) }}" class="text-white">
+                                {{ __('Chenge task') }}
+                            </a>
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>
+
 
         <div class="col">
             <div class="card border-light">

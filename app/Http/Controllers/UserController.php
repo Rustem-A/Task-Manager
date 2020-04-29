@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use App\Task;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -47,8 +48,9 @@ class UserController extends Controller
      */
     public function show(Request $request, User $user)
     {
+        $assignedTasks = Task::where('executor_id', $user->id)->get();
         $isUser = $request->user() == $user;
-        return view('user.show', compact('user', 'isUser'));
+        return view('user.show', compact('user', 'isUser', 'assignedTasks'));
     }
 
     /**

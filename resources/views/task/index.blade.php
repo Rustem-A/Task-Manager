@@ -5,6 +5,7 @@ Tasks List
 @endsection
 
 @section('content')
+
 @if(Auth::check())
 <div class="btn btn-secondary ml-3 mt-3">
     <a href="{{ route('tasks.create') }}" class="text-white">{{ __('Create new task') }}</a>

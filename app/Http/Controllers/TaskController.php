@@ -17,8 +17,11 @@ class TaskController extends Controller
      */
     public function index()
     {
+        $users = User::all();
+        $statuses = TaskStatus::all();
+        $tags = TaskTag::all();
         $tasks = Task::paginate(10);
-        return view('task.index', compact('tasks'));
+        return view('task.index', compact('tasks', 'users', 'statuses', 'tags'));
     }
 
     /**
@@ -79,7 +82,10 @@ class TaskController extends Controller
      */
     public function edit(Task $task)
     {
-        //
+        $users = User::all();
+        $statuses = TaskStatus::all();
+        $tags = TaskTag::all();
+        return view('task.edit', compact('task', 'users', 'statuses', 'tags'));
     }
 
     /**
@@ -91,7 +97,16 @@ class TaskController extends Controller
      */
     public function update(Request $request, Task $task)
     {
-        //
+        $this->validate($request, [
+            'title' => 'max:40'
+        ]);
+
+        $task->fill($request->all());
+        $task->save();
+
+        $request->session()->flash('success', 'Task has been updeted!');
+
+        return redirect()->route('tasks.show', $task);
     }
 
     /**
