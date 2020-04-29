@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use App\Task;
+use App\TaskStatus;
+use App\TaskTag;
 use Illuminate\Http\Request;
 
 class TaskController extends Controller
@@ -14,7 +17,8 @@ class TaskController extends Controller
      */
     public function index()
     {
-        //
+        $tasks = Task::paginate(10);
+        return view('task.index', compact('tasks'));
     }
 
     /**
@@ -24,7 +28,11 @@ class TaskController extends Controller
      */
     public function create()
     {
-        //
+        $statuses = TaskStatus::orderBy('id', 'desc')->paginate();
+        $tags = TaskTag::all();
+        
+        $users = User::all();
+        return view('task.create', compact('users', 'statuses', 'tags'));
     }
 
     /**
@@ -35,7 +43,19 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $task = new Task();
+
+        $this->validate($request, [
+            'title' => 'required|max:40'
+        ]);
+
+        $task->fill($request->all());
+        $task->creator_id = $request->user()->id;
+        $task->save();
+
+        $request->session()->flash('success', 'Task has been created!');
+
+        return redirect()->route('tasks.index');
     }
 
     /**
@@ -46,7 +66,9 @@ class TaskController extends Controller
      */
     public function show(Task $task)
     {
-        //
+        $comments = $task->comments;
+        $executor = User::find($task->executor_id);
+        return view('task.show', compact('task', 'executor', 'comments'));
     }
 
     /**

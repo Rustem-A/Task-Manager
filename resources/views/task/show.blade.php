@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('header')
-    user
+    task
 @endsection
 
 @section('content')
@@ -28,30 +28,58 @@
                     </h5>
                 </div>
                 <div class="card-body">
+                <div class="row">
+                            <div class="col">
+                                <p>Creator</p>
+                            </div>
+                            <div class="col">
+                                <p><a href="{{ route('users.show', $task->creator) }}">{{$task->creator->name}}</a></p>
+                            </div>
+                        </div>
                     <div class="row">
                         <div class="col">
-                            <p>{{ __('NickName') }}</p>
+                            <p>{{ __('Title') }}</p>
                         </div>
                         <div class="col">
-                            <p>{{ $user->name }}</p>
+                            <p>{{ $task->title }}</p>
                         </div>
                     </div>
-                    @if($isUser)
                         <div class="row">
                             <div class="col">
-                                <p>E-mail</p>
+                                <p>Description</p>
                             </div>
                             <div class="col">
-                                <p>{{ $user->email }}</p>
+                                <p>{{ $task->description }}</p>
                             </div>
                         </div>
-                    @endif
+                        <div class="row">
+                            <div class="col">
+                                <p>Executor</p>
+                            </div>
+                            <div class="col">
+                            @if($executor)
+                                <p><a href="{{ route('users.show', $executor) }}">{{$executor->name}}</a></p>
+                            @else
+                                <p>Executor not assigned</p>
+                            @endif
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <p>Status</p>
+                            </div>
+                            <div class="col">
+                                <p>{{ $task->status->name }}</p>
+                            </div>
+                        </div>
+
                     <div class="row">
                         <div class="col">
                             <p>{{ __('Registration date') }}</p>
                         </div>
                         <div class="col">
-                            <p>{{ $user->created_at }}</p>
+                            <p>{{ $task->created_at }}</p>
                         </div>
                     </div>
                 </div>
@@ -62,45 +90,52 @@
             <div class="card border-light">
                 <div class="card-header bg-secondary text-white text-center pt-3 pb-1">
                     <h5>
-                        {{ __('Registration information') }}
+                        {{ __('Comments') }}
                     </h5>
                 </div>
                 <div class="card-body">
-                    <div class="row">
-                        
-                    </div>
-                    
-                    <div class="row">
-                        <div class="col">
-                            
+                
+                @foreach ($comments as $comment)
+                <div class="card my-2">
+                    <div class="card-body">
+                        <div>
+                            {{ __('Date') }}: {{ $comment->created_at }}
                         </div>
-                        <div class="col">
-                            
+                        <div>
+                            {{ __('Author') }}
+                            <a href="{{ route('users.show', $comment->creator) }}">{{$comment->creator->name}}</a>
+                        </div>
+                        <div>
+                            {{ $comment->text }}
                         </div>
                     </div>
                 </div>
-            </div>
+                @endforeach
 
-        <div class="col-sm-3">
-            <div class="card">
-                <div class="card-header bg-secondary text-white text-center pt-3 pb-1">
-                    <h5>
-                        {{ __('Registration information') }}
-                    </h5>
-                </div>
-                <div class="card-body pl-5">
-                    <div class="row">
-                        asd
+                @auth
+        <div class="card border-light">
+            <div class="card-header bg-secondary text-white text-center pt-3 pb-1">
+                <h5>
+                    {{ __('Add new comment') }}
+                </h5>
+            </div>
+            <div class="card-body">
+                {{ Form::open(['url' => route('tasks.taskComments.store', $task), 'method' => 'POST']) }}
+                @csrf
+                    <div class="form-group row">
+                            <textarea id="text" class="form-control" name="text" rows="3">{{ old('text') }}</textarea>
                     </div>
-                    
-                    <div class="row">
-                        <div class="col">
-                            
-                        </div>
-                        <div class="col">
-                            
-                        </div>
+                    <input type="hidden" name="user_id" id="user_id" value="{{ Auth::user()->id }}">
+                    <div class="form-group row">
+                        <button type="submit" class="btn btn-secondary col-sm-3">
+                            {{ __('Save') }}
+                        </button>
                     </div>
+                {{ Form::close()}}
+            </div>
+        </div>
+        @endauth
+
                 </div>
             </div>
 @endauth

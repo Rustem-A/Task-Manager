@@ -23,35 +23,57 @@
                         {{ __('Please fill in the following form') }}</div>
                     </h5>
                 <div class="card-body">
-                    <form method="POST" action="{{ route('task.store') }}">
+                    <form method="POST" action="{{ route('tasks.store') }}">
                         @csrf
 
                         <div class="form-group row">
-                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
+                            <label for="title" class="col-md-4 col-form-label text-md-right">{{ __('Title') }}</label>
 
                             <div class="col-md-6">
-                                <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" required>
+                                <input id="title" type="text" class="form-control" name="title" value="{{ old('title') }}" required>
                                 <small id="nameHelpBlock" class="form-text text-muted">
                                     {{ __('Required field') }}
                                 </small>
                             </div>
                         </div>
 
-                        <!-- <div class="form-group row">
+                        <div class="form-group row">
                             <label for="description" class="col-md-4 col-form-label text-md-right">{{ __('Description') }}</label>
 
                             <div class="col-md-6">
-                                <textarea id="description" class="form-control" name="desc" value="{{ old('desc') }}" rows="3"></textarea>
+                                <textarea id="description" class="form-control" name="description" value="{{ old('description') }}" rows="3"></textarea>
                             </div>
-                        </div> -->
+                        </div>
 
                         <div class="form-group row">
-                            <label for="assignedTo_id" class="col-md-4 col-form-label text-md-right">{{ __('Executor') }}</label>
+                            <label for="executor_id" class="col-md-4 col-form-label text-md-right">{{ __('Executor') }}</label>
                             <div class="col-md-6">
-                                <select class="form-control" id="creator_id" name="creator_id">
+                                <select class="form-control" id="executor_id" name="executor_id">
                                 <option value="">{{ __('assign later') }}</option>
                                 @foreach($users as $user)
                                     <option value="{{ $user->id}} ">{{ $user->name }}</option>
+                                @endforeach
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="status_id" class="col-md-4 col-form-label text-md-right">{{ __('Task status') }}</label>
+                            <div class="col-md-6">
+                                <select class="form-control" id="status_id" name="status_id" value="{{ old('status_id')}}">
+                                @foreach($statuses as $status)
+                                    <option value="{{ $status->id}} ">{{ $status->name }}</option>
+                                @endforeach
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="tag_id" class="col-md-4 col-form-label text-md-right">{{ __('Task status') }}</label>
+                            <div class="col-md-6">
+                                <select class="form-control" id="tag_id" name="tag_id" value="{{ old('tag_id')}}">
+                                @foreach($tags as $tag)
+                                    <option value="{{ $tag->id}} ">{{ $tag->name }}</option>
                                 @endforeach
                                 </select>
                             </div>

@@ -39,7 +39,13 @@ class TaskCommentController extends Controller
      */
     public function store(Request $request, Task $task)
     {
-        //
+        $comment = new TaskComment();
+        $comment->creator_id = $request->input('user_id');
+        $comment->task_id = $task->id;
+        $comment->text = $request->input('text');
+        $comment->save();
+
+        return redirect()->route('tasks.show', $task);
     }
 
     /**
