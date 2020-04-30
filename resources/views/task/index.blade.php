@@ -11,7 +11,7 @@ Tasks List
 <div class="card-body">
 
 {{ Form::open(['url' => route('tasks.index'),'method' => 'get']) }}
-    {{ Form::hidden('authUserId', Auth::user()->id) }}
+    {{ Form::hidden('authUserId', Auth::user()->id ?? null) }}
     <div class="form-group col-md-3 pl-3 my-2">
             <button type="submit" class="btn text-white btn-primary btn-block">
                 {{ __('My tasks') }}
@@ -100,6 +100,7 @@ Tasks List
             <th>{{ __('Creator') }}</th>
             <th>{{ __('Executor') }}</th>
             <th>{{ __('Registration date') }}</th>
+            <th></th>
         </tr>
         @foreach($tasks as $task)
         <tr>
@@ -122,6 +123,14 @@ Tasks List
             @endif
             </td>
             <td>{{ $task->created_at }}</td>
+            <td>
+            @if(Auth::check() && $task->creator == Auth::user())
+                    <div class="btn btn-secondary">
+                        <a href="{{ route('tasks.destroy', $task) }}" class="text-white"
+                            data-confirm="Вы уверены?" data-method="delete" rel="nofollow">{{ __('Delete') }}</a>
+                    </div>
+            @endif
+            </td>
         <tr>
         @endforeach
     </table>
