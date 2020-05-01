@@ -1,27 +1,19 @@
 @extends('layouts.app')
 
-@section('header')
-Main Page
-@endsection
+@section('header', 'Task Manager')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">Dashboard</div>
-
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
-                    Welcome!
-                </div>
-            </div>
-        </div>
+    <div class="jumbotron">
+        <h3 class="text-center">{{ __('home.title') }}</h3>
+        <p class="lead text-center">{!! __('home.about_project') !!}</p>
+        <hr class="my-4">
+        <p>{!! __('home.p1') !!}</p>
+        <p>{!! __('home.p2') !!}</p>
+        <p>{!! __('home.p3') !!}</p>
+        <p>{!! __('home.p4') !!}</p>
+        <p>{!! __('home.p5') !!}</p>
+@if(!Auth::check())
+        <p>{!! __('home.p6') !!}</p>
+@endif
     </div>
-</div>
 @endsection
