@@ -44,10 +44,10 @@
             </ul>
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="/lang/en">En</a>
+                    <a class="nav-link" href="/lang/en" hidden>En</a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="/lang/ru">Ru</a>
+                    <a class="nav-link" href="/lang/ru" hidden>Ru</a>
                 </li>
                 @guest
                 <li class="nav-item active">
