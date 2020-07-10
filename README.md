@@ -4,3 +4,15 @@
 [![Build Status](https://travis-ci.com/Rustem-A/Task-Manager.svg?branch=master)](https://travis-ci.com/Rustem-A/Task-Manager)
 
 https://immense-cove-27656.herokuapp.com/
+
+* Фреймворк Laravel
+* Фронтенд (Bootstrap, CDN)
+* База данных (PostgreSQL, ORM)
+* Деплой (PaaS, Heroku)
+
+Task Manager, систему управления задачами. Основные возможности системы:
+
+* Регистрация
+* Аутентификация
+* Управление задачами
+* Фильтрация
