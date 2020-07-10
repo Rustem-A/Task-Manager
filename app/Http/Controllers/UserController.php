@@ -60,9 +60,11 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-
-        $dateArr = explode('-', $user->birthday);
-        return view('user.edit', compact('user', 'dateArr'));
+        if (empty($user->birthday) > 0) {
+            $dateArr = explode('-', $user->birthday);
+        }
+        
+        return view('user.edit', compact('user'));
     }
 
     /**

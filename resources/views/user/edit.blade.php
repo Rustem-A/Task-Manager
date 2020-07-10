@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('header')
-Registration
+Edit Profile
 @endsection
 
 @section('content')
@@ -51,13 +51,13 @@ Registration
                             <label class="col-md-4 col-form-label text-md-right">{{ __('Birthday') }}</label>
 
                             <div class="col-md-2">
-                                <input id="birth_day" type="text" class="form-control" name="birth_day" value="{{ $dateArr[2][0] }}{{ $dateArr[2][1] }}" placeholder="{{ __('Day') }}">
+                                <input id="birth_day" type="text" class="form-control" name="birth_day" value="{{ empty($dateArr)? '': $dateArr[2][0] }}{{ empty($dateArr)? '':$dateArr[2][1] }}" placeholder="{{ __('Day') }}">
                             </div>
                             <div class="col-md-2">
-                                <input id="birth_month" type="text" class="form-control" name="birth_month" value="{{ $dateArr[1] }}" placeholder="{{ __('Month') }}">
+                                <input id="birth_month" type="text" class="form-control" name="birth_month" value="{{ empty($dateArr)? '':$dateArr[1] }}" placeholder="{{ __('Month') }}">
                             </div>
                             <div class="col-md-2">
-                                <input id="birth_year" type="text" class="form-control" name="birth_year" value="{{ $dateArr[0] }}" placeholder="{{ __('Year') }}">
+                                <input id="birth_year" type="text" class="form-control" name="birth_year" value="{{ empty($dateArr)? '':$dateArr[0] }}" placeholder="{{ __('Year') }}">
                             </div>
                         </div>
 
